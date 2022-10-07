@@ -53,7 +53,10 @@ while(of2.poll() == None):
 			#This exception handles the header line
 			continue
 			
-		#********************************************
+		
+     
+        
+        #********************************************
 		# Most, maybe all, of your code will go here
 		#********************************************
 		
