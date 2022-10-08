@@ -8,6 +8,11 @@ import errno
 import time
 import glob
 
+# Useful for remembering which indexes are what
+# Time , Yaw , Roll, Pitch , L_mouth, r_mouth, B_louth, T_mouth, L_Eyebrow , R_Eyebrow
+Globals = [0] * 10 # Finds out if data is changing or not
+
+
 # Constants for later use
 of2_verbose = False
 temp_output = "of2_out"
@@ -44,33 +49,34 @@ data = open(temp_output_file, 'r')
 # This loop repeats while openface is still running
 # Inside the loop, we read from the file that openface outputs to and check to see if there's anything new
 # We handle the data if there is any, and wait otherwise
-Globals = [0] * 4 # Finds out if data is changing or not
+
+counter = 1;
 print(Globals)
 while (of2.poll() == None):
 	line = data.readline().strip()
 	if (line != ""):
 		try:
-
 			# Parse the line and save the useful values
 			of_values = [float(v) for v in line.split(',')]
-			print(len(of_values))
 			timestamp, confidence, success = of_values[2:5]
 			pitch, yaw, roll = of_values[8:11]
 		    
 			if len(of_values) == 147:
 				landmarks = []
 				for i in range(11, landmark_count + 11):
-					print(i, i+landmark_count)
 					landmarks.append((of_values[i], of_values[i+landmark_count]))
 
-				print(math.dist(landmarks[48],landmarks[54]))
-				# Globals[4] = landmarks[48] 
-				# Globals[5] = landmarks[54]
+
+				if(math.dist(landmarks[62],landmarks[66]) / math.dist(landmarks[48],landmarks[54]) > 0.15 and math.dist(landmarks[62],landmarks[66]) / math.dist(landmarks[48],landmarks[54]) < 0.16):
+					print("You are smiling")		
+				if((math.dist(landmarks[19],landmarks[8]) + math.dist(landmarks[24],landmarks[8])) / math.dist(landmarks[57],landmarks[8])  > 10):
+					print("You are suprised")			
+	
 		except ValueError:
 			# This exception handles the header line
 			continue
 			
-        # ********************************************
+        	# ********************************************
 		# Most, maybe all, of your code will go here
 		# ********************************************
 		
