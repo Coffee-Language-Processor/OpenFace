@@ -65,18 +65,17 @@ while (of2.poll() == None):
 				landmarks = []
 				for i in range(11, landmark_count + 11):
 					landmarks.append((of_values[i], of_values[i+landmark_count]))
-
-
-				if(math.dist(landmarks[62],landmarks[66]) / math.dist(landmarks[48],landmarks[54]) > 0.15 and math.dist(landmarks[62],landmarks[66]) / math.dist(landmarks[48],landmarks[54]) < 0.16):
+	
+				if(math.dist(landmarks[62],landmarks[66]) / math.dist(landmarks[48],landmarks[54]) > 0.15 and math.dist(landmarks[62],landmarks[66]) / math.dist(landmarks[48],landmarks[54]) < 0.18):
 					print("You are smiling")		
-				if((math.dist(landmarks[19],landmarks[8]) + math.dist(landmarks[24],landmarks[8])) / math.dist(landmarks[57],landmarks[8])  > 10):
+				if((math.dist(landmarks[19],landmarks[8]) + math.dist(landmarks[24],landmarks[8])) / math.dist(landmarks[57],landmarks[8])  > 11):
 					print("You are suprised")			
 	
 		except ValueError:
 			# This exception handles the header line
 			continue
 			
-        	# ********************************************
+                # ********************************************
 		# Most, maybe all, of your code will go here
 		# ********************************************
 		
@@ -87,7 +86,7 @@ while (of2.poll() == None):
 				Globals[1] = yaw
 
 			if abs(Globals[2] - roll) > .11:
-				print("\'Indian nod\'\n")
+				print("Indian nod\n")
 				Globals[2] = roll
 			
 			if abs(Globals[3] - pitch) > 0.08:
